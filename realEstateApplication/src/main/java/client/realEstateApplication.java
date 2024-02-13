@@ -1,38 +1,37 @@
 package client;
 
+import entity.UserLoan;
+import service.UserLoanService;
+
 import java.util.Scanner;
 
 public class realEstateApplication {
-
-
     public static void main(String[] args) {
-
-        // Prompt to the user to enter their annual income
-        System.out.println("Welcome to the Loan Calculator!");
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Please enter your annual income: $");
-        double annualIncome = scanner.nextDouble();
-
-        // Calculating maximum loan amount
-        double maximumLoanAmount = calculateMaximumLoan(annualIncome);
-        System.out.println("Your maximum loan amount is: $" + maximumLoanAmount);
+        System.out.println("Welcome to the Estate Buying Application!");
+        gatherUserInfo();
     }
 
-    public static double calculateMaximumLoan(double annualIncome) {
-        // Calculating max loan
-        double monthlyIncome = annualIncome / 12;
-        double maximumMonthlyPayment = monthlyIncome / 3;
+    public static void gatherUserInfo() {
+        Scanner scanner = new Scanner(System.in);
 
-        double totalLoanAmount = maximumMonthlyPayment * 0.5 * 12 * 30;
-        double totalLoanInterest = maximumMonthlyPayment * 0.3 *12 * 30;
-        double totalLoanTax = maximumMonthlyPayment * 0.2 * 12 * 30;
+        System.out.print("Please enter your annual income: $ ");
 
-        // Applying loan restrictions
-        if (totalLoanAmount < 50000) {
-            System.out.println("Annual Income low to get a loan.");
-            return 0;
-        }
+        // Read the user's input for annual income
+        double annualIncome = scanner.nextDouble();
 
-        return totalLoanAmount;
+        UserLoan userLoan = new UserLoan();
+
+        // Set the annual income obtained from user input
+        userLoan.setAnnualIncome(annualIncome);
+
+        // Create an instance of UserLoanService
+        UserLoanService loanService = new UserLoanService();
+
+        // Generate the maximum loan amount based on the user's input
+        loanService.generateMaximumLoan(userLoan);
+
+        // Display the maximum loan amount calculated
+        double maxLoanAmount = userLoan.getMaxLoanAmount();
+        System.out.println("Your maximum loan amount is: $" + maxLoanAmount);
     }
 }
