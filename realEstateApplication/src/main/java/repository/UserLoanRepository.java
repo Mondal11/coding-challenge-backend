@@ -20,5 +20,4 @@ public class UserLoanRepository {
         return userList;
     }
 
-    // You can implement other CRUD operations as needed
 }
