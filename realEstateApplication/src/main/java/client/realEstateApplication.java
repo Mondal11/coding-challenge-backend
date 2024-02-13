@@ -1,6 +1,9 @@
 package client;
 
+import java.util.List;
 import java.util.Scanner;
+
+import entity.House;
 import entity.UserLoan;
 import repository.BuyerRequirementRepository;
 import repository.HouseRepository;
@@ -61,9 +64,9 @@ public class realEstateApplication {
 
         HouseRepository houseRepository = new HouseRepository();
         HouseListingService houseListingService = new HouseListingService(houseRepository);
+        houseListingService.generateHouseListings(maxLoanAmount, squareFootage, bedrooms, bathrooms);
         boolean regenerate = true;
         while (regenerate) {
-            houseListingService.generateHouseListings(maxLoanAmount, squareFootage, bedrooms, bathrooms);
             System.out.println("-------------------------------------");
             System.out.println("House listings have been generated based on your requirements.");
             System.out.println("-------------------------------------");
@@ -77,18 +80,50 @@ public class realEstateApplication {
 
             switch (choice) {
                 case 1:
-                    // lefy to implement house purchase logic
-                    System.out.println("Purchase logic");
                     System.out.println("You have chosen to purchase a house.");
+                    List<House> houseListings = houseRepository.getAllHouseListings();
+                    if (houseListings.isEmpty()) {
+                        System.out.println("There are no houses available for purchase.");
+                        break;
+                    }
+
+                    System.out.println("Available houses for purchase:");
+                    for (int i = 0; i < houseListings.size(); i++) {
+                        House house = houseListings.get(i);
+                        System.out.println("Option: "+(i + 1) );
+                        System.out.println("   Purchase Price: $" + house.getPurchasePrice());
+                        System.out.println("   Square Footage: " + house.getSquareFootage());
+                        System.out.println("   Bedrooms: " + house.getBedrooms());
+                        System.out.println("   Bathrooms: " + house.getBathrooms());
+                        System.out.println("-------------------------------------");
+                    }
+
+                    System.out.print("Enter the option number of the house you want to purchase: ");
+                    int purchaseNumber = scanner.nextInt();
+
+                    if (purchaseNumber < 1 || purchaseNumber > houseListings.size()) {
+                        System.out.println("-------------------------------------");
+                        System.out.println("Invalid house number. Please enter a valid number.");
+                        continue;
+                    }
+
+                    House selectedHouse = houseListings.get(purchaseNumber - 1);
+                    System.out.println("You have purchased the following house:");
+                    System.out.println("Purchase Price: $" + selectedHouse.getPurchasePrice());
+                    System.out.println("Square Footage: " + selectedHouse.getSquareFootage());
+                    System.out.println("Bedrooms: " + selectedHouse.getBedrooms());
+                    System.out.println("Bathrooms: " + selectedHouse.getBathrooms());
+
                     regenerate = false;
                     break;
+
                 case 2:
                     System.out.println("You have chosen to regenerate the house listings.");
+                    houseListingService.generateHouseListings(maxLoanAmount, squareFootage, bedrooms, bathrooms);
                     break;
                 default:
                     System.out.println("Invalid choice. Please enter 1 or 2.");
             }
         }
-
     }
 }
