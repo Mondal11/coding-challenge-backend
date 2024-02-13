@@ -5,13 +5,14 @@ import java.util.Scanner;
 
 import entity.House;
 import entity.UserLoan;
+import repository.BillRepository;
 import repository.BuyerRequirementRepository;
 import repository.HouseRepository;
+import service.BillGenerationService;
 import service.BuyerRequirementService;
 import service.HouseListingService;
 import service.UserLoanService;
 
-import java.util.Scanner;
 
 public class realEstateApplication {
 
@@ -106,14 +107,11 @@ public class realEstateApplication {
                         System.out.println("Invalid house number. Please enter a valid number.");
                         continue;
                     }
-
                     House selectedHouse = houseListings.get(purchaseNumber - 1);
-                    System.out.println("You have purchased the following house:");
-                    System.out.println("Purchase Price: $" + selectedHouse.getPurchasePrice());
-                    System.out.println("Square Footage: " + selectedHouse.getSquareFootage());
-                    System.out.println("Bedrooms: " + selectedHouse.getBedrooms());
-                    System.out.println("Bathrooms: " + selectedHouse.getBathrooms());
-
+                    BillRepository billRepository = new BillRepository();
+                    BillGenerationService billGenerationService = new BillGenerationService(billRepository);
+                    billGenerationService.generateBill(selectedHouse);
+                    billRepository.printBills();
                     regenerate = false;
                     break;
 

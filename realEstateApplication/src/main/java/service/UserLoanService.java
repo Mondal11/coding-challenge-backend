@@ -9,7 +9,7 @@ public class UserLoanService {
         double monthlyIncome = userLoan.getAnnualIncome() / 12;
         double maxMonthlyPayment = monthlyIncome / 3;
 
-        double totalLoanAmount = maxMonthlyPayment * 360 * 0.5; // 30 years = 360 months
+        double totalLoanAmount = maxMonthlyPayment * 360 * 0.5;
 
         double totalLoanInterest = totalLoanAmount * 360 * 0.3;
         double totalLoanInsurance = totalLoanAmount * 360 * 0.2;
