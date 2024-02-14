@@ -18,6 +18,4 @@ public class realEstateApplication {
         System.out.println("Welcome to the Estate Buying Application!");
         gatherUserInfo();
     }
-
-
 }
