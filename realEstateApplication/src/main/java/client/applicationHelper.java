@@ -46,7 +46,7 @@ public class applicationHelper {
 
     /**
      * Gathers buyer requirements for house purchasing and handles the house listing generation.
-     * Allows the user to purchase a house or regenerate the listings if the user wanted.
+     * Allows the user to purchase a house or regenerate the listings.
      *
      * @param scanner       Scanner object for user input.
      * @param maxLoanAmount The maximum loan amount calculated based on the user's annual income.

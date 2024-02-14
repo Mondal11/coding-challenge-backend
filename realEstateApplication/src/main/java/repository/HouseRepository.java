@@ -35,4 +35,11 @@ public class HouseRepository {
     public List<House> getAllHouseListings() {
         return houseListings;
     }
+
+    /**
+     * Clears all house listings from the repository.
+     */
+    public void clearListings() {
+        houseListings.clear();
+    }
 }
