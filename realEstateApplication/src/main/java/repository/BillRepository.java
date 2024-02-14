@@ -4,21 +4,45 @@ import entity.Bill;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Repository class for managing bills generated for house purchases.
+ */
 public class BillRepository {
     private List<Bill> billList;
 
+    /**
+     * Constructs a new BillRepository object with an empty list of bills.
+     */
     public BillRepository() {
         this.billList = new ArrayList<>();
     }
 
+    /**
+     * Adds a bill to the repository.
+     *
+     * @param bill The bill to be added.
+     */
     public void addBill(Bill bill) {
         billList.add(bill);
     }
 
+    /**
+     * Retrieves all the bills stored in the repository in our case
+     * there is only one bill every time the application is run.
+     *
+     * @return A list of all bills stored in the repository.
+     */
     public List<Bill> getAllBills() {
         return billList;
     }
+
+
+    /**
+     * Retrieves all the bills stored in the repository in our case
+     * there is only one bill every time the application is run.
+     *
+     * Print the bill generated for the user buying the house.
+     */
     public void printBills() {
         System.out.println("-------------------------------------");
         System.out.println("Generated Bill:");

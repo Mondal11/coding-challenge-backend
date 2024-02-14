@@ -3,8 +3,18 @@ package service;
 import entity.UserLoan;
 import repository.UserLoanRepository;
 
+/**
+ * Service class for generating maximum loan amount based on user's annual income.
+ */
 public class UserLoanService {
+
     private final UserLoanRepository userLoanRepository = new UserLoanRepository();
+
+    /**
+     * Generates the maximum loan amount based on the user's annual income.
+     *
+     * @param userLoan The UserLoan object containing the user's annual income.
+     */
     public void generateMaximumLoan(UserLoan userLoan) {
         double monthlyIncome = userLoan.getAnnualIncome() / 12;
         double maxMonthlyPayment = monthlyIncome / 3;
